@@ -1,0 +1,69 @@
+﻿@page
+@model task.Pages.empDataModel
+@{
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+
+<body>
+    <div class="">
+        <div class="d-flex justify-content-between  align-items-center">
+            <h1>Employee Data</h1>
+
+        </div>
+        <table class="table table-striped table-bordered" id="sortTable">
+            <thead >
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Department Description</th>
+                    <th>Status</th>
+                    <th>Created By</th>
+                    <th>Updated By</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var emp in Model.Employeelist)
+                {
+                    <tr>
+                        <td>@emp.Name</td>
+                        <td>@emp.Email</td>
+                        <td>@emp.Phone</td>
+                        <td>@emp.Department</td>
+                        <td>@emp.DepartmentDescription</td>
+                        <td>
+                            @if (@emp.Status == "Active")
+                            {
+                                <span class="badge badge-success">@emp.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">@emp.Status</span>
+                            }
+                        </td>
+                        <td>@emp.CreatedBy <br />@emp.CreatedDate.ToString("MMM dd, yyyy")</td>
+                        <td>@emp.UpdatedBy <br />@emp.UpdatedDate.ToString("MMM dd, yyyy")</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <script>
+            $('#sortTable').DataTable();
+        </script>
+    </div>
+</body>

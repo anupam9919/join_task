@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EnterpriseLibrary.Data.NetCore" Version="6.0.1313" />
+    <PackageReference Include="MySql.Data" Version="8.0.23" />
+    <PackageReference Include="NLog" Version="5.2.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\coreLayer\coreLayer.csproj" />
+  </ItemGroup>
+
+</Project>

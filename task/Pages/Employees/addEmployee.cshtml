@@ -1,0 +1,79 @@
+﻿@page
+@model task.Pages.Employees.addEmployeeModel
+@{
+}
+
+<div class="d-flex justify-content-around  align-items-center">
+    <h1>Add Employee</h1>
+    <a class="btn btn-primary" href="/employees/empList" role="button">All Employees</a>
+</div>
+
+@{
+    Html.RenderPartialAsync("_Message");
+}
+
+<form method="post" class="w-50 container bg-warning rounded p-3">
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.Name, new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.Phone, new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone" })
+            @Html.ValidationMessageFor(m => m.Phone)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.Department, new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.Department, new SelectList(Model.Departments), "Select Departments")
+            @Html.ValidationMessageFor(m => m.Department)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        <label for="Status" class="col-sm-2 col-form-lable">Status</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.Status, new SelectList(Model.Statuses), "Select Status")
+            @Html.ValidationMessageFor(m => m.Status)
+        </div>
+    </div>
+
+
+    <div class="form-group row mt-3">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" onclick="SubmitForm();">Submit</button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/jquery.blockui.js"></script>
+
+
+    <script type="text/javascript">
+        function SubmitForm() 
+        {
+            if ($('#Name').val() && $('#Email').val() && $('#Phone').val() && $('#Department').val() && $('#Status').val())
+            {
+                $.blockUI({ message: '<h1> Just a moment...</h1>' });
+            }
+        }
+    </script>
+}

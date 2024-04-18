@@ -1,0 +1,16 @@
+2024-04-18 13:41:25.4027 Info Loading assembly name: NLog.Web.AspNetCore
+2024-04-18 13:41:25.4233 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext, RuntimeAssembly requestingAssembly, Boolean throwOnFileNotFound)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Config.AssemblyExtensionLoader.LoadAssemblyFromName(String assemblyName)
+   at NLog.Config.AssemblyExtensionLoader.LoadAssemblyFromName(ConfigurationItemFactory factory, String assemblyName, String itemNamePrefix)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssemblyName(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2024-04-18 13:41:25.5317 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=default)
+2024-04-18 13:41:25.5317 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'alldata' not found for logging rule: *.
+2024-04-18 13:41:25.5652 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2024-04-18 13:41:25.5736 Info Validating config: TargetNames=default, ConfigItems=21, FilePath=D:\asp\task\task\bin\Debug\net8.0\NLog.config
+2024-04-18 13:41:25.5736 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: default
+2024-04-18 13:41:25.5862 Info Configuration initialized.
