@@ -12,7 +12,7 @@ namespace task.Pages.Employees
     [BindProperties]
     public class addEmployeeModel : BaseModel
     {
-        [Required(ErrorMessage="Please Enter Name")]
+        [Required(ErrorMessage = "Please Enter Name")]
         [StringLength(50)]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please Enter Email")]
@@ -22,7 +22,7 @@ namespace task.Pages.Employees
         [StringLength(50)]
         public string Phone { get; set; }
         [Required(ErrorMessage = "Please Select Department")]
-        
+
         public string Department { get; set; }
         [Required(ErrorMessage = "Please Select Status")]
         public string Status { get; set; }
@@ -31,18 +31,26 @@ namespace task.Pages.Employees
         [Required(ErrorMessage = "Please Select Status")]
         public List<string> Statuses { get; set; }
         public string CreatedBy { get; set; }
-        
-        
-       
 
 
 
+
+
+        /// <summary>
+        /// Handles the HTTP GET request for the add employee page.
+        /// </summary>
         public void OnGet()
         {
             Statuses = CommonFunctions.Status();
             Departments = CommonFunctions.GetDepartmentsFromDatabase();
-           
+
         }
+
+        /// <summary>
+        /// Handles the HTTP POST request for adding a employee.
+        /// </summary>
+        /// <returns>The IActionResult representing the result of the operation.</returns>
+
         public IActionResult OnPost()
         {
             Employee employee = new Employee();
@@ -53,11 +61,11 @@ namespace task.Pages.Employees
             employee.Status = Status;
             employee.CreatedBy = "System";
             employee.UpdatedBy = "System";
-            
+
 
             EmployeeManager employeeManager = new EmployeeManager();
-            OperationResult operationResult= employeeManager.AddEmployee(employee);
-            if(operationResult.StatusCode==(int)OperationStatus.Success)
+            OperationResult operationResult = employeeManager.AddEmployee(employee);
+            if (operationResult.StatusCode == (int)OperationStatus.Success)
             {
                 Success(operationResult.Message);
             }
@@ -68,7 +76,7 @@ namespace task.Pages.Employees
                 Statuses = CommonFunctions.Status();
                 return Page();
             }
-            
+
 
             return RedirectToPage("/Employees/empList");
         }

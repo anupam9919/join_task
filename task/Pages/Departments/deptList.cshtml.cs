@@ -10,12 +10,19 @@ namespace task.Pages.Departments
     [BindProperties]
     public class deptListModel : BaseModel
     {
-        
+        /// <summary>
+        /// Gets or sets the list of departments.
+        /// </summary>
         public List<Department> DepartmentList { get; set; }
         public string Message { get; set; }
         public int Id { get; set; }
+
+
+        /// <summary>
+        /// Handles the HTTP GET request for the department list page.
+        /// </summary>
         public void OnGet()
-        { 
+        {
             DepartmentManager departmentManager = new DepartmentManager();
             log.Debug("Department List Page");
             DepartmentList = departmentManager.GetAll();
@@ -23,6 +30,11 @@ namespace task.Pages.Departments
 
         }
 
+        /// <summary>
+        /// Handles the HTTP GET request for deleting a department.
+        /// </summary>
+        /// <param name="Id">The ID of the department to delete.</param>
+        /// <returns>The IActionResult representing the result of the operation.</returns>
         public IActionResult OnGetDelete(int Id)
         {
             log.Debug($"Department On Get Delete {Id}");
@@ -30,6 +42,7 @@ namespace task.Pages.Departments
             departmentManager.DeleteDepartment(Id);
             log.Debug("Department Deleted");
             return RedirectToPage("/Departments/deptList");
+
         }
     }
 }
