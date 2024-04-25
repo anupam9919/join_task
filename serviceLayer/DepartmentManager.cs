@@ -18,7 +18,7 @@ namespace serviceLayer
             Department alreadyExistsByName = GetByDeptName(department.Name);
             if (alreadyExistsByName != null)
             {
-                return new OperationResult((int)OperationStatus.Failure, SLConstants.Messages.DeptErrorNameMessage, department);
+                return new OperationResult((int)OperationStatus.Failure, SLConstants.Messages.DeptErrorMessage, department);
                 log.Debug($"Department Name:{department.Name} Already Exists");
             }
 

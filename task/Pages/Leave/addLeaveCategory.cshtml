@@ -1,0 +1,67 @@
+﻿@page
+@model task.Pages.Leave.addLeaveCategoryModel
+@{
+}
+
+
+<div class="d-flex justify-content-around  align-items-center">
+    <h1>Add Leave Category</h1>
+    <a class="btn btn-primary" href="/Leave/listLeaveCategory" role="button">All Leave Category</a>
+</div>
+
+@{
+    Html.RenderPartialAsync("_Message");
+}
+
+<form method="post" class="w-50 container bg-warning rounded p-3">
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.name, "Name", new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Name" })
+            @Html.ValidationMessageFor(m => m.name)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.description,"Description", new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.description, new { @class = "form-control", placeholder = "Description" })
+            @Html.ValidationMessageFor(m => m.description)
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        @Html.LabelFor(m => m.isDocumentRequired, "Document Required", new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            <div class="form-check">
+                @Html.CheckBoxFor(m => m.isDocumentRequired, new { @class = "form-check-input", id = "isDocumentRequired" })
+                
+            </div>
+            @Html.ValidationMessageFor(m => m.isDocumentRequired)
+        </div>
+    </div>
+
+
+
+    <div class="form-group row mt-3">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" onclick="SubmitForm();">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/jquery.blockui.js"></script>
+
+
+    <script type="text/javascript">
+        function SubmitForm() {
+            if ($('#Name').val() && $('#Description').val()) {
+                $.blockUI({ message: '<h1> Just a moment...</h1>' });
+            }
+        }
+    </script>
+}

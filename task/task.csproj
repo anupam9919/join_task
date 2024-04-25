@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="EnterpriseLibrary.Data.NetCore" Version="6.0.1313" />
+    <PackageReference Include="Microsoft.AspNet.WebHelpers" Version="3.3.0" />
     <PackageReference Include="MySql.Data" Version="8.0.23" />
     <PackageReference Include="NLog" Version="5.2.8" />
   </ItemGroup>
@@ -22,6 +23,10 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\LeaveCategory\" />
   </ItemGroup>
 
 </Project>

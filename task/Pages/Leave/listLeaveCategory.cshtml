@@ -1,8 +1,7 @@
 ﻿@page
-@model task.Pages.Employees.empListModel
+@model task.Pages.Leave.listLeaveCategoryModel
 @{
 }
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,8 +16,8 @@
 <body>
     <div class="">
         <div class="d-flex justify-content-between  align-items-center">
-            <h1>Employee List</h1>
-            <a class="btn btn-primary" href="/employees/addEmployee" role="button">Add Employee</a>
+            <h1>Leave Category List</h1>
+            <a class="btn btn-primary" href="/Leave/addLeaveCategory" role="button">Add Leave Category</a>
         </div>
 
         @{
@@ -29,44 +28,41 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Status</th>
+
+                    <th>Description</th>
+                    <th>Document Required</th>
                     <th>Created By</th>
                     <th>Updated By</th>
                     <th>Action</th>
-                    
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var emp in Model.Employeelist)
+                @foreach (var emp in Model.LeaveCategoryList)
                 {
                     <tr>
-                        <td>@emp.Name</td>
-                        <td>@emp.Email</td>
-                        <td>@emp.Phone</td>
-                        <td>@emp.Department</td>
-                        <td>@emp.Designation</td>
+                        <td>@emp.name</td>
+                        <td>@emp.description</td>
                         <td>
-                            @if (@emp.Status == "Active")
+                            @if (@emp.isDocumentRequired == true)
                             {
-                                <span class="badge badge-success">@emp.Status</span>
+                                <span class="badge badge-success">Yes</span>
 
                             }
                             else
                             {
-                                <span class="badge badge-danger">@emp.Status</span>
+                                <span class="badge badge-danger">No</span>
                             }
+
                         </td>
-                        <td>@emp.CreatedBy <br />@emp.CreatedDate.ToString("MMM dd, yyyy")</td>
-                        <td>@emp.UpdatedBy <br />@emp.UpdatedDate.ToString("MMM dd, yyyy")</td>
+                        <td>@emp.createdBy <br /> @emp.createdDate.ToString("MMM dd, yyyy")</td>
+                        <td>@emp.updatedBy <br /> @emp.updatedDate.ToString("MMM dd, yyyy")</td>
                         <td>
-                            <a href="/employees/updateEmp?id=@emp.Id"><i class="fas fa-edit"></i></a>
-                            <a href="#." onclick="ShowDeleteConfirmation(@emp.Id)"><i class="fas fa-trash-alt"></i></a>
+                            <a href="/Leave/updateLeaveCategory?id=@emp.id"><i class="fas fa-edit"></i></a>
+                            <a href="#." onclick="ShowDeleteConfirmation(@emp.id)"><i class="fas fa-trash-alt"></i></a>
                         </td>
+
+
                     </tr>
                 }
 
@@ -111,7 +107,7 @@
 
         function DeleteEmployee() {
             $('#exampleModal').modal('hide');
-            document.location.href = "/Employees/empList?handler=Delete&id=" + deleteID;
+            document.location.href = "/Leave/listLeaveCategory?handler=Delete&id=" + deleteID;
         }
     </script>
 }

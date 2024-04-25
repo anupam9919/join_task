@@ -22,7 +22,7 @@ namespace serviceLayer
                 log.Debug($"Employee Name:{employee.Name} Already Exists");
             }
 
-            if(employee.Phone.Length>10)
+            if (employee.Phone.Length > 10)
             {
                 return new OperationResult((int)OperationStatus.Failure, SLConstants.Messages.EmpErrorPhoneMessage, employee);
                 log.Debug($"Employee Phone:{employee.Phone} is more than 10 digits");
@@ -31,13 +31,13 @@ namespace serviceLayer
             Employee alreadyExists = GetByEmail(employee.Email);
             if (alreadyExists != null)
             {
-                return new OperationResult((int)OperationStatus.Failure,SLConstants.Messages.EmpErrorEmailMessage, employee);
+                return new OperationResult((int)OperationStatus.Failure, SLConstants.Messages.EmpErrorEmailMessage, employee);
                 log.Debug($"Employee Email:{employee.Email} Already Exists");
             }
 
 
             EmployeeDB.AddEmployee(employee);
-            return new OperationResult((int)OperationStatus.Success,SLConstants.Messages.EmpSuccessMessage, employee);
+            return new OperationResult((int)OperationStatus.Success, SLConstants.Messages.EmpSuccessMessage, employee);
             log.Debug($"Employee Name:{employee.Name} Added");
         }
         public void UpdateEmployee(Employee employee)
@@ -54,7 +54,7 @@ namespace serviceLayer
         public Employee GetByEmail(string Email)
         {
             Employee employee = EmployeeDB.GetByEmail(Email);
-            
+
 
             return employee;
         }
@@ -70,7 +70,7 @@ namespace serviceLayer
             log.Debug($"All Employees Found");
             return employeeList;
         }
-        
+
 
         public Employee GetByID(int Id)
         {
@@ -86,7 +86,15 @@ namespace serviceLayer
 
         }
 
+        public List<Employee> GetEmpWfh()
+        {
+            List<Employee> employeeWfhList = EmployeeDB.GetEmpWfh();
+            log.Debug($"All Employees and their Departments Found");
+            return employeeWfhList;
+
+        }
 
 
     }
 }
+

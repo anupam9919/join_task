@@ -1,13 +1,19 @@
 ﻿namespace task.AppCode
 {
     public static class Constants
-    {   
+    {
         public const string Active = "Active";
         public const string Inactive = "Inactive";
 
+        public const string Approved = "Approved";
+        public const string Pending = "Pending";
+        public const string Rejected = "Rejected";
+
     }
 
-    public static class  Messages
+
+
+    public static class Messages
     {
         public const string EmpSuccessMessage = "Employee Added Successfully";
         public const string EmpErrorMessage = "Employee Already Exists";

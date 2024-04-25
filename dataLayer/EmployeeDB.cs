@@ -17,11 +17,12 @@ namespace dataLayer
             DatabaseFactory.SetDatabaseProviderFactory(new DatabaseProviderFactory(new SystemConfigurationSource(false).GetSection), false);
             Database db = DatabaseFactory.CreateDatabase("Local");
 
-            DbCommand cmd = db.GetSqlStringCommand($"INSERT INTO Employees(Name, Email, Phone,Department,Status, CreatedBy, UpdatedBy  ) VALUES(@Name, @Email, @Phone,@Department,@Status, @CreatedBy, @UpdatedBy); SELECT LAST_INSERT_ID()");
+            DbCommand cmd = db.GetSqlStringCommand($"INSERT INTO Employees(Name, Email, Phone,Department,Designation,Status, CreatedBy, UpdatedBy  ) VALUES(@Name, @Email, @Phone,@Department,@Designation,@Status, @CreatedBy, @UpdatedBy); SELECT LAST_INSERT_ID()");
             db.AddInParameter(cmd, "Name", DbType.String, employee.Name);
             db.AddInParameter(cmd, "Email", DbType.String, employee.Email);
             db.AddInParameter(cmd, "Phone", DbType.String, employee.Phone);
             db.AddInParameter(cmd, "Department", DbType.String, employee.Department);
+            db.AddInParameter(cmd, "Designation", DbType.String, employee.Designation);
             db.AddInParameter(cmd, "Status", DbType.String, employee.Status);
             db.AddInParameter(cmd, "CreatedBy", DbType.String, employee.CreatedBy);
             db.AddInParameter(cmd, "UpdatedBy", DbType.String, employee.UpdatedBy);
@@ -147,7 +148,7 @@ namespace dataLayer
             List<Employee> employeeList = new List<Employee>();
             DatabaseFactory.SetDatabaseProviderFactory(new DatabaseProviderFactory(new SystemConfigurationSource(false).GetSection), false);
             Database db = DatabaseFactory.CreateDatabase("Local");
-            DbCommand cmd = db.GetSqlStringCommand("SELECT e.Id, e.Name AS Name , e.Email AS Email, e.Phone AS Phone, e.Department AS Department, e.Status AS Status, e.CreatedBy AS CreatedBy, e.UpdatedBy AS UpdatedBy,e.CreatedOnUTC AS CreatedOnUTC,e.UpdatedOnUTC AS UpdatedOnUTC,  d.Name AS DepartmentName, d.Description AS DepartmentDescription FROM Employees e LEFT JOIN Department d ON e.Department = d.Name");
+            DbCommand cmd = db.GetSqlStringCommand("SELECT e.Id, e.Name AS Name , e.Email AS Email, e.Phone AS Phone, e.Department AS Department,e.Designation as Designation, e.Status AS Status, e.CreatedBy AS CreatedBy, e.UpdatedBy AS UpdatedBy,e.CreatedOnUTC AS CreatedOnUTC,e.UpdatedOnUTC AS UpdatedOnUTC,  d.Name AS DepartmentName, d.Description AS DepartmentDescription FROM Employees e LEFT JOIN Department d ON e.Department = d.Name");
             IDataReader reader = db.ExecuteReader(cmd);
 
             while (reader.Read())
@@ -157,6 +158,31 @@ namespace dataLayer
                 employeeList.Add(employee);
             }
             return employeeList;
+        }
+
+
+
+        public static List<Employee> GetEmpWfh()
+        {
+            List<Employee> employeeWfhList = new List<Employee>();
+            DatabaseFactory.SetDatabaseProviderFactory(new DatabaseProviderFactory(new SystemConfigurationSource(false).GetSection), false);
+            Database db = DatabaseFactory.CreateDatabase("Local");
+            DbCommand cmd = db.GetSqlStringCommand("SELECT e.Id, e.Name AS Name , e.Email AS Email,e.Phone as Phone   ,e.Department AS Department, e.CreatedBy AS CreatedBy, e.UpdatedBy AS UpdatedBy,e.CreatedOnUTC AS CreatedOnUTC,e.UpdatedOnUTC AS UpdatedOnUTC,e.Designation as Designation, w.WfhStatus AS Status, w.StartDate as startDate,w.EndDate as endDate, w.Reason as reason, w.Duration as duration FROM Employees e LEFT JOIN Wfh w ON  e.Id=w.EmpId WHERE w.EmpId IS NOT NULL ");
+            IDataReader reader = db.ExecuteReader(cmd);
+
+            while (reader.Read())
+            {
+                Employee employeeWfh = new Employee(reader);
+                employeeWfh.startDate = reader["startDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["startDate"]);
+                employeeWfh.endDate = reader["endDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["endDate"]);
+
+                employeeWfh.reason = reader["reason"] == DBNull.Value ? string.Empty : reader["reason"].ToString();
+                employeeWfh.duration = reader["duration"] == DBNull.Value ? 0 : Convert.ToInt32(reader["duration"]);
+                employeeWfh.WfhStatus = reader["Status"].ToString();
+
+                employeeWfhList.Add(employeeWfh);
+            }
+            return employeeWfhList;
         }
     }
 }

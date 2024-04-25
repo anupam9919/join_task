@@ -16,6 +16,8 @@ namespace coreLayer.BusinessObject
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Department { get; set; }
+
+        public string Designation { get; set; }
         public string Status { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
@@ -24,7 +26,13 @@ namespace coreLayer.BusinessObject
 
         public string DepartmentDescription { get; set; }
 
-        
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public string reason { get; set; }
+        public string WfhStatus { get; set; }
+        public int duration { get; set; }
+
+
 
         public Employee()
         {
@@ -33,12 +41,19 @@ namespace coreLayer.BusinessObject
             Email = "";
             Phone = "";
             Department = "";
+            Designation = "";
             Status = "";
             CreatedBy = "";
             UpdatedBy = "";
             CreatedDate = DateTime.UtcNow;
             UpdatedDate = DateTime.UtcNow;
             DepartmentDescription = "";
+            WfhStatus = "";
+            startDate = DateTime.UtcNow;
+            endDate = DateTime.UtcNow;
+            reason = "";
+            duration = 0;
+
 
         }
         public Employee(IDataReader reader)
@@ -48,13 +63,15 @@ namespace coreLayer.BusinessObject
             Email = reader["Email"].ToString();
             Phone = reader["Phone"].ToString();
             Department = reader["Department"].ToString();
+            Designation = reader["Designation"].ToString();
             Status = reader["Status"].ToString();
             CreatedBy = reader["CreatedBy"].ToString();
             UpdatedBy = reader["UpdatedBy"].ToString();
+
             CreatedDate = Convert.ToDateTime(reader["CreatedOnUTC"]);
             UpdatedDate = Convert.ToDateTime(reader["UpdatedOnUTC"]);
-            
-            
+
+
 
         }
 

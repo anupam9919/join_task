@@ -31,7 +31,7 @@ namespace task.Pages.Employees
         [Required(ErrorMessage = "Please Select Status")]
         public List<string> Statuses { get; set; }
         public string UpdatedBy { get; set; }
-        
+
         public DateTime UpdatedDate { get; set; }
         public void OnGet(int ID)
         {
@@ -45,7 +45,7 @@ namespace task.Pages.Employees
             Status = employee.Status;
 
             Statuses = CommonFunctions.Status();
-            UpdatedDate = CommonFunctions.GetCurrentDateFormatted();   
+
             Departments = CommonFunctions.GetDepartmentsFromDatabase();
         }
         public IActionResult OnPost()
@@ -73,8 +73,8 @@ namespace task.Pages.Employees
             }
 
             return RedirectToPage("/Employees/empList");
-            
+
         }
-        
+
     }
 }

@@ -32,6 +32,12 @@ namespace task.Pages.Employees
         public List<string> Statuses { get; set; }
         public string CreatedBy { get; set; }
 
+        public string UpdatedBy { get; set; }
+
+        public List<string> Designations { get; set; }
+
+        public string Designation { get; set; }
+
 
 
 
@@ -43,6 +49,8 @@ namespace task.Pages.Employees
         {
             Statuses = CommonFunctions.Status();
             Departments = CommonFunctions.GetDepartmentsFromDatabase();
+            Designations = CommonFunctions.GetDesignationsFromDatabase();
+
 
         }
 
@@ -58,6 +66,7 @@ namespace task.Pages.Employees
             employee.Email = Email;
             employee.Phone = Phone;
             employee.Department = Department;
+            employee.Designation = Designation;
             employee.Status = Status;
             employee.CreatedBy = "System";
             employee.UpdatedBy = "System";
@@ -74,6 +83,7 @@ namespace task.Pages.Employees
                 Warning(operationResult.Message);
                 Departments = CommonFunctions.GetDepartmentsFromDatabase();
                 Statuses = CommonFunctions.Status();
+                Designations = CommonFunctions.GetDesignationsFromDatabase();
                 return Page();
             }
 
